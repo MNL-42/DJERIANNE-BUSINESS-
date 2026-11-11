@@ -1,871 +1,421 @@
-<!DOCTYPE html>
-<html lang="fr" class="dark">
+<!doctype html>
+<html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DJERIANNE BUSINESS</title>
-  
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- FontAwesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Google Fonts - Style Élégant et Royal (Inter & Playfair Display) -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap" rel="stylesheet">
-  
-  <!-- PWA Manifest & Theme -->
-  <link rel="manifest" href="./manifest.json">
-  <meta name="theme-color" content="#12061A">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Djerianne Business | Boutique en ligne</title>
+<meta name="description" content="Djerianne Business : découvre nos articles et commande directement sur WhatsApp.">
+<meta name="theme-color" content="#0d0914">
+<meta property="og:title" content="Djerianne Business | Boutique en ligne">
+<meta property="og:description" content="Découvre nos articles et commande directement sur WhatsApp.">
+<meta property="og:image" content="./logo.jpg">
+<meta property="og:type" content="website">
+<link rel="icon" href="./logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============ BASE : couleurs du logo (améthyste, or, rubis) ============ */
+:root{--bg:#0d0914;--text:#f8f4ff;--muted:#bcb0d6;--line:rgba(255,255,255,.13);--am:168,107,255;--ru:214,51,108;--em:16,185,129;
+  --gold:#f2c14e;--gold-hi:#fff3c4;--gl:linear-gradient(100deg,#fff3c4,#f4c95d 38%,#c8901a 68%,#ffe39a);
+  --gf:linear-gradient(160deg,rgba(255,255,255,.13),rgba(255,255,255,.04));--serif:'Cormorant Garamond',Georgia,serif}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{min-height:100vh;color:var(--text);font:400 15px/1.5 'Jost',system-ui,sans-serif;overflow-x:hidden;padding-bottom:calc(112px + env(safe-area-inset-bottom));
+  background:radial-gradient(120% 55% at 50% -8%,#2d1850 0%,rgba(13,9,20,0) 62%),radial-gradient(90% 45% at 100% 100%,#3b1030 0%,rgba(13,9,20,0) 62%),var(--bg)}
+body.lock{overflow:hidden}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+.gold{background:var(--gl);-webkit-background-clip:text;background-clip:text;color:transparent}
+.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.muted{color:var(--muted)}
 
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            serif: ['Playfair Display', 'serif'],
-            sans: ['Inter', 'sans-serif']
-          }
-        }
-      }
-    }
-  </script>
+/* lumières « bokeh » derrière le verre (décor) */
+#bk{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+#bk i{position:absolute;left:var(--x);top:var(--y);width:var(--s);height:var(--s);border-radius:50%;
+  background:radial-gradient(circle,rgba(var(--c),.34),rgba(var(--c),0) 65%);animation:drift 26s ease-in-out infinite alternate;animation-delay:var(--d,0s)}
+@keyframes drift{to{transform:translate(7vmax,5vmax) scale(1.1)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes rise{from{opacity:0;transform:translateY(22px) scale(.97)}}
+@keyframes fade{from{opacity:0}}
+@keyframes up{from{transform:translateY(60px);opacity:.4}}
+@keyframes shine{to{background-position:-200% 0}}
 
-  <style>
-    :root {
-      --color-gold: #E5C158;
-      --color-pink: #EC4899;
-      --color-purple: #1A0A26;
-      --color-purple-halo: #24112e;
-      --color-bg: #0d0610;
-    }
+/* ============ BOUTONS ============ */
+.btn{height:46px;padding:0 20px;border-radius:23px;border:1px solid rgba(255,255,255,.22);display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap;background:var(--gf);box-shadow:inset 0 1px 0 rgba(255,255,255,.32);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);transition:transform .15s,filter .2s}
+.btn:active{transform:scale(.97)}
+.btn.gold{background:linear-gradient(180deg,#f7d57a,#c8901a);color:#2b1800;border-color:rgba(255,238,175,.8);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.65),0 14px 28px -14px rgba(242,193,78,.8)}
+.btn.wa{background:linear-gradient(180deg,rgba(var(--em),.42),rgba(var(--em),.16));border-color:rgba(110,231,183,.38);color:#e9fff6}
+.btn.sm{height:40px;padding:0 16px;font-size:13px}
+.btn.ic{width:46px;padding:0;flex:none}
+.sf .btn:not(.ic){flex:1}
 
-    body {
-      background: radial-gradient(circle at top, var(--color-purple-halo) 0%, var(--color-bg) 100%);
-      color: #FFFFFF;
-      font-family: 'Inter', sans-serif;
-      min-height: 100vh;
-    }
+/* ============ ACCUEIL ============ */
+.hero{text-align:center;padding:44px 0 30px}
+.medal{position:relative;width:172px;height:172px;margin:0 auto 22px;border-radius:50%;display:grid;place-items:center;background:#150d22;
+  font:700 50px var(--serif);color:var(--gold);box-shadow:0 0 0 1px rgba(255,255,255,.1),0 26px 60px -18px rgba(var(--am),.8)}
+.medal img{position:absolute;inset:0;width:100%;height:100%;border-radius:50%;object-fit:cover;transform:scale(1.03)}
+.medal::before{content:"";position:absolute;inset:-8px;border-radius:50%;pointer-events:none;
+  background:conic-gradient(rgba(242,193,78,.95),rgba(242,193,78,0) 28%,rgba(var(--am),.85) 52%,rgba(var(--ru),0) 76%,rgba(242,193,78,.95));
+  -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2px));mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2px));animation:spin 9s linear infinite}
+h1{font:700 58px/1 var(--serif);letter-spacing:.01em}
+h1 small{display:block;margin-top:10px;font:500 13px 'Jost';letter-spacing:.62em;padding-left:.62em;color:#fff;opacity:.9}
+.lead{max-width:420px;margin:18px auto 24px;color:var(--muted);font-size:16px}
+.cta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.chips{list-style:none;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:26px}
+.chips li{padding:7px 14px;border-radius:99px;font-size:12.5px;color:#e6dcff;background:var(--gf);border:1px solid var(--line);box-shadow:inset 0 1px 0 rgba(255,255,255,.2);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 
-    .glass-card {
-      background: rgba(26, 10, 38, 0.45);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.5);
-    }
+/* ============ BOUTIQUE ============ */
+.sh{display:flex;align-items:center;gap:14px;margin:26px 0 20px}
+.sh::before,.sh::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(242,193,78,.55))}
+.sh::after{transform:scaleX(-1)}
+.sh div{text-align:center}
+.sh h2{font:600 34px/1.1 var(--serif)}
+.sh p{font-size:12.5px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;min-height:18px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media(min-width:700px){.grid{grid-template-columns:repeat(3,1fr);gap:18px}}
+@media(min-width:1000px){.grid{grid-template-columns:repeat(4,1fr)}}
+.card{position:relative;border-radius:30px;padding:8px 8px 14px;cursor:pointer;animation:rise .6s both;animation-delay:calc(var(--i)*55ms);
+  background:linear-gradient(160deg,rgba(255,255,255,.11),rgba(255,255,255,.03) 55%,rgba(var(--am),.09));border:1px solid var(--line);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 18px 34px -22px #000}
+.ph{position:relative;aspect-ratio:3/4;overflow:hidden;background:#1b1230;border-radius:46% 46% 20px 20px/22% 22% 20px 20px;box-shadow:inset 0 0 0 1px rgba(242,193,78,.35)}
+.ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s}
+@media(hover:hover){.card:hover .ph img{transform:scale(1.06)}.card:hover{border-color:rgba(242,193,78,.45)}}
+.meta{display:flex;align-items:flex-end;justify-content:space-between;gap:8px;padding:11px 6px 0}
+.nm{font:600 20px/1.12 var(--serif);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pr{margin-top:4px;font-weight:600;font-size:14px;color:var(--gold)}
+.add{flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;color:var(--gold-hi);border:1px solid rgba(255,236,170,.55);
+  background:linear-gradient(180deg,rgba(244,201,93,.38),rgba(200,144,26,.16));box-shadow:inset 0 1px 0 rgba(255,255,255,.4)}
+.add:active{transform:scale(.92)}
+.tag{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);padding:5px 14px;border-radius:99px;font-size:12px;font-weight:600;letter-spacing:.08em;
+  background:rgba(13,9,20,.62);border:1px solid rgba(255,255,255,.25);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.sold .ph img{filter:grayscale(.6) brightness(.7)}
+.sk{aspect-ratio:3/4.7;border-radius:30px;border:1px solid var(--line);background:linear-gradient(100deg,rgba(255,255,255,.04) 30%,rgba(255,255,255,.12) 50%,rgba(255,255,255,.04) 70%) 0 0/200% 100%;animation:shine 1.4s linear infinite}
+.empty{text-align:center;padding:46px 22px;border-radius:30px;border:1px solid var(--line);background:var(--gf);box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
+.empty b{display:block;font:600 28px var(--serif);margin-bottom:6px}
 
-    .glass-nav {
-      background: rgba(13, 6, 16, 0.75);
-      backdrop-filter: blur(25px);
-      -webkit-backdrop-filter: blur(25px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    }
+/* comment commander */
+.how{display:grid;gap:10px;margin:44px 0 10px}
+@media(min-width:700px){.how{grid-template-columns:repeat(3,1fr)}}
+.how div{display:flex;align-items:center;gap:14px;padding:14px 18px;border-radius:24px;background:var(--gf);border:1px solid var(--line);box-shadow:inset 0 1px 0 rgba(255,255,255,.22)}
+.how b{flex:none;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font:700 20px var(--serif);color:#2b1800;background:linear-gradient(180deg,#f7d57a,#c8901a)}
 
-    .glass-modal {
-      background: rgba(18, 8, 22, 0.95);
-      backdrop-filter: blur(30px);
-      -webkit-backdrop-filter: blur(30px);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-    }
+footer{margin-top:40px;padding:30px 0 10px;text-align:center;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+footer .fl{font:700 26px var(--serif)}
+footer a{display:inline-block;margin:10px 0;color:#e9fff6}
+footer button{padding:4px 8px;opacity:.5}
 
-    .brand-title {
-      font-family: 'Playfair Display', serif;
-      letter-spacing: 0.05em;
-    }
+/* ============ BARRE FLOTTANTE ============ */
+.dock{position:fixed;z-index:50;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));transform:translateX(-50%);width:min(92vw,400px);height:66px;display:flex;align-items:center;justify-content:space-around;
+  border-radius:33px;background:linear-gradient(160deg,rgba(255,255,255,.16),rgba(255,255,255,.04)),rgba(28,18,46,.5);border:1px solid rgba(255,255,255,.2);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 22px 50px -18px #000,0 0 0 1px rgba(242,193,78,.12);-webkit-backdrop-filter:blur(22px) saturate(1.6);backdrop-filter:blur(22px) saturate(1.6)}
+.dock>*{position:relative;display:flex;flex-direction:column;align-items:center;gap:2px;min-width:78px;padding:6px 8px;font-size:11px;font-weight:500;letter-spacing:.04em;text-decoration:none;color:#efe7ff}
+.dock .c{color:var(--gold-hi)}
+.dock .w{color:#9af0cc}
+.bdg{position:absolute;top:0;right:14px;min-width:19px;height:19px;padding:0 5px;border-radius:99px;display:grid;place-items:center;font-size:11px;font-weight:700;color:#2b1800;background:var(--gold);border:2px solid #1c1230}
 
-    .text-dynamic-accent {
-      background: linear-gradient(135deg, #FFF 0%, var(--color-gold) 40%, var(--color-pink) 70%, #E5C158 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+/* ============ FENÊTRES ============ */
+.modal{position:fixed;inset:0;z-index:60;display:none;align-items:flex-end;justify-content:center;background:rgba(6,3,12,.62);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.modal.on{display:flex;animation:fade .25s}
+.sheet{position:relative;width:100%;max-width:560px;max-height:93vh;display:flex;flex-direction:column;border-radius:32px 32px 0 0;border:1px solid rgba(255,255,255,.17);border-bottom:0;
+  background:linear-gradient(170deg,rgba(255,255,255,.13),rgba(255,255,255,.03) 40%),rgba(26,16,42,.8);box-shadow:inset 0 1px 0 rgba(255,255,255,.42),0 -30px 80px -24px rgba(var(--am),.5);
+  -webkit-backdrop-filter:blur(26px) saturate(1.5);backdrop-filter:blur(26px) saturate(1.5);animation:up .38s cubic-bezier(.2,.9,.3,1)}
+.sheet::before{content:"";position:absolute;top:8px;left:50%;width:44px;height:4px;margin-left:-22px;border-radius:4px;background:rgba(255,255,255,.3)}
+.sc{overflow:auto;padding:26px 18px 12px;flex:1;-webkit-overflow-scrolling:touch}
+.sf{display:flex;gap:10px;padding:12px 16px calc(14px + env(safe-area-inset-bottom));border-top:1px solid var(--line)}
+.x{position:absolute;top:14px;right:14px;z-index:3;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:rgba(13,9,20,.5);border:1px solid rgba(255,255,255,.25);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.pimg{display:block;width:100%;aspect-ratio:1;max-height:50vh;border-radius:26px;overflow:hidden;background:#1b1230;box-shadow:inset 0 0 0 1px rgba(242,193,78,.4),0 20px 40px -24px #000}
+.pimg img{width:100%;height:100%;object-fit:cover;display:block}
+.ref{margin-top:18px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+#pName{font:600 34px/1.1 var(--serif);margin-top:4px}
+.pprice{margin-top:6px;font:600 24px var(--serif);color:var(--gold)}
+.note{margin-top:12px;color:var(--muted);font-size:14px}
+.ci{display:flex;align-items:center;gap:12px;padding:10px;margin-bottom:10px;border-radius:20px;background:var(--gf);border:1px solid var(--line)}
+.ci img{width:62px;height:62px;border-radius:14px;object-fit:cover;flex:none}
+.ci>div{flex:1;min-width:0}.ci b{display:block;font:600 18px/1.15 var(--serif)}.ci span{font-size:13px;color:var(--gold)}
+.q{display:flex;align-items:center;gap:8px}.q button{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.1);border:1px solid var(--line)}
+.tot{display:flex;justify-content:space-between;align-items:baseline;padding:8px 4px 0;font-size:14px}.tot b{font:700 28px var(--serif);color:var(--gold)}
+#zoom{position:fixed;inset:0;z-index:90;display:none;place-items:center;background:rgba(5,2,10,.94);padding:12px}
+#zoom.on{display:grid;animation:fade .2s}#zoom img{max-width:100%;max-height:100%;border-radius:18px}
+#toast{position:fixed;left:50%;bottom:calc(100px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:95;padding:11px 20px;border-radius:99px;font-size:14px;font-weight:500;
+  background:rgba(28,18,46,.62);border:1px solid rgba(255,255,255,.22);box-shadow:inset 0 1px 0 rgba(255,255,255,.3);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);animation:rise .3s both}
 
-    .btn-gold {
-      background-color: var(--color-gold);
-      color: #0d0610;
-      transition: all 0.3s ease;
-    }
-    .btn-gold:hover {
-      filter: brightness(1.15);
-      box-shadow: 0 0 20px var(--color-gold);
-    }
-
-    .bg-badge-pink {
-      background-color: var(--color-pink);
-    }
-
-    .border-gold {
-      border-color: var(--color-gold);
-    }
-
-    .text-gold {
-      color: var(--color-gold);
-    }
-
-    #zoomedImage {
-      transition: transform 0.3s ease;
-      cursor: zoom-in;
-    }
-    #zoomedImage.zoomed {
-      transform: scale(1.8);
-      cursor: zoom-out;
-    }
-
-    ::-webkit-scrollbar {
-      width: 6px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #0d0610;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #31183d;
-      border-radius: 3px;
-    }
-  </style>
+/* espace créateur */
+.ah{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 12px}
+#aSt{min-height:20px;margin:0 0 12px;font-size:13.5px;color:var(--muted)}#aSt.err{color:#ff9db5}#aSt.ok{color:#9af0cc}
+.arow{display:flex;gap:12px;padding:10px;margin-bottom:10px;border-radius:20px;background:var(--gf);border:1px solid var(--line)}
+.arow>img{width:70px;height:92px;border-radius:14px;object-fit:cover;flex:none}
+.af{flex:1;min-width:0;display:grid;gap:6px}.af b{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.in{width:100%;height:40px;padding:0 12px;border-radius:12px;color:var(--text);font:500 14px 'Jost';background:rgba(0,0,0,.28);border:1px solid var(--line);outline:0}
+.in:focus{border-color:rgba(242,193,78,.7)}
+.tg{display:flex;gap:16px;font-size:13px}.tg label{display:flex;align-items:center;gap:6px}.tg input{accent-color:#f2c14e;width:17px;height:17px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media(prefers-reduced-transparency:reduce){.dock,.sheet,.modal{-webkit-backdrop-filter:none;backdrop-filter:none;background-color:rgba(24,15,38,.96)}}
+</style>
 </head>
-<body class="flex flex-col justify-between selection:bg-[#E5C158] selection:text-[#0d0610]">
+<body>
+<div id="bk" aria-hidden="true">
+  <i style="--s:70vmax;--x:-26vmax;--y:-18vmax;--c:168,107,255"></i>
+  <i style="--s:48vmax;--x:48vw;--y:22vh;--c:242,193,78;--d:-8s"></i>
+  <i style="--s:60vmax;--x:-14vmax;--y:62vh;--c:214,51,108;--d:-14s"></i>
+</div>
 
-  <!-- En-tête / Navigation -->
-  <header class="sticky top-0 z-40 glass-nav transition-all">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-      <a href="#" class="flex items-center space-x-3 group">
-        <!-- Logo JPG -->
-        <div class="relative p-0.5 rounded-lg bg-gradient-to-r from-amber-500 to-pink-500 group-hover:from-gold group-hover:to-pink-400 transition duration-300">
-          <img src="./Logo.jpg" onerror="this.src='https://via.placeholder.com/150/0d0610/E5C158?text=DG'" alt="Logo Djerianne Business" class="h-10 w-10 object-contain rounded-md bg-black">
-        </div>
-        <div>
-          <h1 class="brand-title font-black text-lg tracking-wider uppercase leading-none text-white group-hover:text-gold transition">DJERIANNE</h1>
-          <span class="text-[9px] text-neutral-400 font-bold tracking-[0.3em] block">BUSINESS • DG</span>
-        </div>
-      </a>
-
-      <div class="flex items-center space-x-2.5">
-        <button onclick="promptCreatorAccess()" title="Espace Créateur" class="p-2.5 rounded-full bg-neutral-900/80 hover:bg-neutral-800 text-neutral-400 hover:text-gold transition border border-neutral-800 font-mono text-xs shadow">
-          @
-        </button>
-        <button onclick="toggleSearch()" class="p-2.5 rounded-full bg-neutral-900/80 hover:bg-neutral-800 text-neutral-300 hover:text-white transition border border-neutral-800">
-          <i class="fa-solid fa-magnifying-glass text-sm"></i>
-        </button>
-        <button onclick="openCart()" class="relative p-2.5 rounded-full bg-neutral-900/80 hover:bg-neutral-800 text-neutral-300 hover:text-white transition border border-neutral-800">
-          <i class="fa-solid fa-bag-shopping text-sm"></i>
-          <span id="cartBadge" class="absolute -top-1 -right-1 bg-badge-pink text-white font-extrabold text-[10px] w-5 h-5 rounded-full flex items-center justify-center border-2 border-black hidden">0</span>
-        </button>
-      </div>
+<div class="wrap">
+  <header class="hero">
+    <div class="medal"><span>DJ</span><img src="./logo.jpg" alt="Logo Djerianne Business" onerror="this.remove()"></div>
+    <h1><span class="gold">Djerianne</span><small>BUSINESS</small></h1>
+    <p class="lead">Des articles choisis avec soin. Tu choisis, tu commandes sur WhatsApp.</p>
+    <div class="cta">
+      <a class="btn gold" href="#boutique">Voir la boutique</a>
+      <a class="btn wa sm" id="heroWa" target="_blank" rel="noopener"><i data-i="chat"></i>WhatsApp</a>
     </div>
-
-    <div id="searchContainer" class="hidden border-t border-neutral-800/60 bg-black/90 backdrop-blur-lg px-4 py-3">
-      <div class="max-w-6xl mx-auto flex items-center bg-neutral-900/90 border border-neutral-700/60 rounded-xl px-4 py-2.5">
-        <i class="fa-solid fa-search text-neutral-400 mr-3"></i>
-        <input type="text" id="searchInput" oninput="filterProducts()" placeholder="Rechercher une pièce exclusive..." class="bg-transparent text-sm text-white focus:outline-none w-full">
-        <button onclick="toggleSearch()" class="text-neutral-400 hover:text-white ml-2">
-          <i class="fa-solid fa-times"></i>
-        </button>
-      </div>
-    </div>
+    <ul class="chips"><li>Commande rapide</li><li>Prix clairs</li><li>Réponse sur WhatsApp</li></ul>
   </header>
 
-  <!-- Bannière PWA -->
-  <div id="pwaInstallBanner" class="hidden bg-gradient-to-r from-pink-950 via-neutral-950 to-purple-950 border-b border-pink-900/40 px-4 py-2.5 flex items-center justify-between text-xs">
-    <div class="flex items-center space-x-3">
-      <i class="fa-solid fa-mobile-screen-button text-gold text-base"></i>
-      <span>Installez l'application <b>Djerianne Business</b> !</span>
-    </div>
-    <button onclick="installPwa()" class="btn-gold text-[#0d0610] font-bold px-4 py-1.5 rounded-lg transition text-xs">
-      Installer
-    </button>
-  </div>
+  <main id="boutique">
+    <div class="sh"><div><h2 class="gold">La boutique</h2><p id="count"></p></div></div>
+    <div id="grid" class="grid" aria-live="polite"></div>
+    <div id="empty" class="empty" hidden><b>Les articles arrivent bientôt</b><span class="muted">Reviens très vite, la collection s'agrandit.</span></div>
 
-  <!-- Hero Section -->
-  <section class="relative overflow-hidden pt-8 pb-6 px-4">
-    <div class="max-w-6xl mx-auto">
-      <div class="glass-card rounded-3xl p-6 md:p-10 relative overflow-hidden border border-white/10">
-        <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-pink-500/15 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -left-10 -top-10 w-64 h-64 bg-purple-500/15 rounded-full blur-3xl pointer-events-none"></div>
-
-        <div class="relative z-10 max-w-2xl space-y-4">
-          <div class="inline-flex items-center space-x-2 bg-neutral-900/80 border border-gold/30 px-3 py-1 rounded-full text-xs font-semibold text-gold">
-            <span class="w-2 h-2 rounded-full bg-gold animate-pulse"></span>
-            <span>Collection DG • L'élégance au féminin</span>
-          </div>
-
-          <h2 class="brand-title text-3xl sm:text-5xl font-black tracking-tight leading-tight uppercase">
-            Sublimez votre style avec <br><span class="text-dynamic-accent">Djerianne Business</span>
-          </h2>
-
-          <p class="text-neutral-300 text-xs sm:text-sm leading-relaxed font-light">
-            Découvrez nos pièces d'exception minutieusement sélectionnées pour vous. Des tendances raffinées qui captent la lumière et affirment votre élégance en toute occasion.
-          </p>
-
-          <div class="flex flex-wrap gap-3 pt-2">
-            <a href="#catalogues" class="btn-gold text-[#0d0610] font-bold px-6 py-3 rounded-xl transition text-xs sm:text-sm flex items-center space-x-2 shadow-lg">
-              <span>Explorer la Collection</span>
-              <i class="fa-solid fa-arrow-down text-xs"></i>
-            </a>
-            <button onclick="openMobileMoneyModal()" class="bg-neutral-900/80 hover:bg-neutral-800 text-gold border border-gold/40 font-bold px-5 py-3 rounded-xl transition text-xs sm:text-sm flex items-center space-x-2 shadow-lg">
-              <i class="fa-solid fa-mobile-retro"></i>
-              <span>Payer par Mobile Money</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contenu Principal -->
-  <main id="catalogues" class="max-w-6xl mx-auto px-4 py-6 flex-grow w-full space-y-6">
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-neutral-800/80 pb-4">
-      <div>
-        <h3 class="brand-title text-xl font-extrabold uppercase tracking-wide flex items-center">
-          <span class="w-2 h-6 btn-gold rounded-full mr-3"></span>
-          Marchandises Disponibles (DG)
-        </h3>
-        <p class="text-xs text-neutral-400 mt-0.5">Cliquez sur une photo pour l'agrandir et zoomer</p>
-      </div>
-
-      <div class="flex items-center space-x-2 text-xs text-neutral-400">
-        <i class="fa-solid fa-shield-halved text-gold"></i>
-        <span>Commandes directes & Sécurisées</span>
-      </div>
-    </div>
-
-    <!-- Grille de Produits -->
-    <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+    <section class="how" aria-label="Comment commander">
+      <div><b>1</b>Choisis ton article</div>
+      <div><b>2</b>Ajoute-le au panier</div>
+      <div><b>3</b>Envoie ta commande sur WhatsApp</div>
+    </section>
   </main>
 
-  <!-- Pied de page -->
-  <footer class="bg-black/80 border-t border-neutral-900/80 py-10 px-4 text-center text-xs text-neutral-500 mt-12 backdrop-blur-md">
-    <div class="max-w-6xl mx-auto space-y-5">
-      <div class="flex flex-col items-center justify-center space-y-2">
-        <h4 class="brand-title font-black text-base text-white tracking-widest uppercase">DJERIANNE BUSINESS • DG</h4>
-        <p class="text-neutral-400 max-w-md font-light">L'élégance au féminin, le style qui vous ressemble.</p>
-      </div>
-      
-      <div class="flex justify-center items-center space-x-3 py-2">
-        <span class="px-2.5 py-1 bg-neutral-900 border border-neutral-800 rounded text-[10px] text-amber-400 font-bold">M-PESA</span>
-        <span class="px-2.5 py-1 bg-neutral-900 border border-neutral-800 rounded text-[10px] text-orange-400 font-bold">ORANGE MONEY</span>
-        <span class="px-2.5 py-1 bg-neutral-900 border border-neutral-800 rounded text-[10px] text-red-400 font-bold">AIRTEL MONEY</span>
-      </div>
-
-      <div class="flex justify-center items-center space-x-5 pt-2">
-        <a href="https://wa.me/243846464895" target="_blank" class="text-neutral-400 hover:text-emerald-400 text-xl transition">
-          <i class="fa-brands fa-whatsapp"></i>
-        </a>
-        <button onclick="promptCreatorAccess()" title="Espace Créateur" class="text-neutral-700 hover:text-neutral-400 font-mono text-sm px-2 py-1">
-          @
-        </button>
-      </div>
-
-      <p class="text-[10px] text-neutral-600">&copy; 2026 DJERIANNE BUSINESS (DG). Tous droits réservés.</p>
-    </div>
+  <footer>
+    <div class="fl gold">Djerianne Business</div>
+    <a id="footWa" target="_blank" rel="noopener"></a>
+    <div>&copy; 2026 Djerianne Business. Tous droits réservés.<button id="adm" aria-label="Espace créateur">&nbsp;&middot;&nbsp;</button></div>
   </footer>
+</div>
 
-  <!-- Modal Agrandissement / Zoom Photo -->
-  <div id="imageModal" class="fixed inset-0 bg-black/95 backdrop-blur-xl z-50 hidden flex flex-col items-center justify-center p-4">
-    <button onclick="closeImageModal()" class="absolute top-5 right-5 text-white bg-neutral-900/80 border border-neutral-700 w-10 h-10 rounded-full flex items-center justify-center hover:bg-neutral-800 transition z-50">
-      <i class="fa-solid fa-xmark text-lg"></i>
-    </button>
-    <div class="relative max-w-4xl max-h-[85vh] overflow-hidden flex items-center justify-center">
-      <img id="zoomedImage" onclick="toggleZoom()" src="" alt="Zoom" class="max-h-[80vh] max-w-full object-contain rounded-xl select-none">
-    </div>
-    <p class="text-xs text-neutral-400 mt-4 tracking-wide">Cliquez sur l'image pour zoomer / dézoomer</p>
+<nav class="dock" aria-label="Navigation">
+  <a href="#boutique" id="dShop"><i data-i="gem"></i>Boutique</a>
+  <button class="c" id="dCart" aria-label="Ouvrir le panier"><i data-i="bag"></i>Panier<span class="bdg" id="bdg" hidden>0</span></button>
+  <a class="w" id="dWa" target="_blank" rel="noopener"><i data-i="chat"></i>WhatsApp</a>
+</nav>
+
+<!-- Fiche article -->
+<div class="modal" id="mP"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="pName">
+  <button class="x" data-close aria-label="Fermer"><i data-i="x"></i></button>
+  <div class="sc" id="pBody"></div><div class="sf" id="pFoot"></div>
+</div></div>
+
+<!-- Panier -->
+<div class="modal" id="mC"><div class="sheet" role="dialog" aria-modal="true" aria-label="Mon panier">
+  <button class="x" data-close aria-label="Fermer"><i data-i="x"></i></button>
+  <div class="sc"><h2 class="gold" style="font:600 32px var(--serif);margin-bottom:16px">Mon panier</h2><div id="cList"></div><div class="tot" id="cTot"></div></div>
+  <div class="sf"><button class="btn wa" id="cSend"><i data-i="chat"></i>Commander sur WhatsApp</button><button class="btn ic" id="cClr" aria-label="Vider le panier"><i data-i="x"></i></button></div>
+</div></div>
+
+<!-- Espace créateur -->
+<div class="modal" id="mA"><div class="sheet" role="dialog" aria-modal="true" aria-label="Espace créateur" style="max-width:640px;max-height:96vh">
+  <button class="x" data-close aria-label="Fermer"><i data-i="x"></i></button>
+  <div class="sc">
+    <h2 class="gold" style="font:600 32px var(--serif)">Espace créateur</h2>
+    <p class="muted" style="margin:4px 0 12px;font-size:13.5px">Les photos 1.jpg, 2.jpg… du dépôt apparaissent ici toutes seules. Donne-leur un nom et un prix.</p>
+    <div class="ah"><button class="btn gold sm" id="aSave">Enregistrer</button><button class="btn sm" id="aTest">Tester Firebase</button></div>
+    <div id="aSt" role="status"></div><div id="aList"></div>
   </div>
-
-  <!-- Modal Panier -->
-  <div id="cartModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex justify-end">
-    <div class="glass-modal w-full max-w-md h-full flex flex-col border-l border-neutral-800">
-      <div class="p-4 border-b border-neutral-800 flex items-center justify-between">
-        <h3 class="brand-title font-bold text-base flex items-center text-white">
-          <i class="fa-solid fa-bag-shopping mr-2 text-gold"></i> Mon Panier DG
-        </h3>
-        <button onclick="closeCart()" class="text-neutral-400 hover:text-white p-2">
-          <i class="fa-solid fa-xmark text-xl"></i>
-        </button>
-      </div>
-
-      <div id="cartItemsList" class="flex-grow overflow-y-auto p-4 space-y-4"></div>
-
-      <div class="p-4 border-t border-neutral-800/80 space-y-3 bg-black/60">
-        <div class="flex justify-between items-center text-sm font-bold">
-          <span>Total Estimé :</span>
-          <span id="cartTotalPrice" class="text-xl font-extrabold text-gold">0 $</span>
-        </div>
-
-        <div class="grid grid-cols-1 gap-2 pt-1">
-          <button onclick="sendCartToWhatsApp()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl flex items-center justify-center space-x-2 transition shadow-lg">
-            <i class="fa-brands fa-whatsapp text-lg"></i>
-            <span>Valider sur WhatsApp</span>
-          </button>
-          <button onclick="openMobileMoneyModal()" class="w-full bg-neutral-900 border border-white/10 text-white font-bold py-2.5 rounded-xl hover:bg-neutral-800 transition text-xs flex items-center justify-center space-x-2">
-            <i class="fa-solid fa-mobile-retro text-gold"></i>
-            <span>Payer par Mobile Money</span>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal Mobile Money -->
-  <div id="mobileMoneyModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-    <div class="glass-modal rounded-2xl w-full max-w-lg overflow-hidden border border-white/10 shadow-2xl">
-      <div class="p-4 border-b border-neutral-800 flex items-center justify-between bg-black/50">
-        <h3 class="brand-title font-bold text-base flex items-center text-white">
-          <i class="fa-solid fa-mobile-retro mr-2 text-gold"></i> Paiement Mobile Money
-        </h3>
-        <button onclick="closeMobileMoneyModal()" class="text-neutral-400 hover:text-white">
-          <i class="fa-solid fa-xmark text-xl"></i>
-        </button>
-      </div>
-
-      <div class="p-6 space-y-6 max-h-[80vh] overflow-y-auto">
-        <p class="text-xs text-neutral-300 leading-relaxed font-light">
-          Pour effectuer votre paiement, effectuez votre transfert vers l'un des comptes officiels ci-dessous, puis envoyez la capture par WhatsApp.
-        </p>
-
-        <div class="space-y-3">
-          <div class="p-3.5 bg-neutral-900/90 border border-amber-500/30 rounded-xl flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-              <div class="w-10 h-10 rounded-lg bg-amber-500/20 text-amber-400 font-black flex items-center justify-center text-xs">M</div>
-              <div>
-                <h4 class="font-bold text-xs text-white">M-Pesa (Vodacom)</h4>
-                <p class="text-xs font-mono text-amber-400 font-bold">+243 84 64 64 895</p>
-              </div>
-            </div>
-            <button onclick="copyToClipboard('+243846464895')" class="text-xs bg-neutral-800 text-neutral-300 px-3 py-1.5 rounded-lg">Copier</button>
-          </div>
-
-          <div class="p-3.5 bg-neutral-900/90 border border-orange-500/30 rounded-xl flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-              <div class="w-10 h-10 rounded-lg bg-orange-500/20 text-orange-400 font-black flex items-center justify-center text-xs">O</div>
-              <div>
-                <h4 class="font-bold text-xs text-white">Orange Money</h4>
-                <p class="text-xs font-mono text-orange-400 font-bold">+243 84 64 64 895</p>
-              </div>
-            </div>
-            <button onclick="copyToClipboard('+243846464895')" class="text-xs bg-neutral-800 text-neutral-300 px-3 py-1.5 rounded-lg">Copier</button>
-          </div>
-
-          <div class="p-3.5 bg-neutral-900/90 border border-red-500/30 rounded-xl flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-              <div class="w-10 h-10 rounded-lg bg-red-500/20 text-red-400 font-black flex items-center justify-center text-xs">A</div>
-              <div>
-                <h4 class="font-bold text-xs text-white">Airtel Money</h4>
-                <p class="text-xs font-mono text-red-400 font-bold">+243 82 69 14 276</p>
-              </div>
-            </div>
-            <button onclick="copyToClipboard('+243826914276')" class="text-xs bg-neutral-800 text-neutral-300 px-3 py-1.5 rounded-lg">Copier</button>
-          </div>
-        </div>
-
-        <button onclick="confirmMobileMoneyWhatsApp()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl flex items-center justify-center space-x-2 transition shadow-lg">
-          <i class="fa-brands fa-whatsapp text-lg"></i>
-          <span>Confirmer le paiement sur WhatsApp</span>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal Espace Créateur (@) -->
-  <div id="creatorModal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-    <div class="glass-modal rounded-2xl w-full max-w-2xl max-h-[85vh] flex flex-col overflow-hidden border border-white/20">
-      <div class="p-4 border-b border-neutral-800 flex items-center justify-between bg-black/80">
-        <h3 class="brand-title font-bold text-base flex items-center text-white">
-          <i class="fa-solid fa-sliders mr-2 text-gold"></i> Espace Créateur DG • Sélection Galerie & Cloud
-        </h3>
-        <button onclick="closeCreatorModal()" class="text-neutral-400 hover:text-white">
-          <i class="fa-solid fa-xmark text-xl"></i>
-        </button>
-      </div>
-
-      <div class="p-4 bg-neutral-900/80 border-b border-neutral-800 flex flex-col sm:flex-row items-center justify-between gap-3">
-        <span class="text-xs text-neutral-300 font-semibold">Ajouter une marchandise (.jpg depuis la galerie) :</span>
-        <input type="file" id="galleryFileInput" accept="image/*" onchange="handleGalleryUpload(event)" class="text-xs text-neutral-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold btn-gold file:text-[#0d0610] cursor-pointer">
-      </div>
-
-      <div class="p-4 overflow-y-auto space-y-3 flex-grow" id="creatorProductsList"></div>
-
-      <div class="p-4 border-t border-neutral-800 bg-black/90 flex justify-between items-center">
-        <span class="text-xs text-neutral-400">Synchronisé en direct sur tous les téléphones</span>
-        <button onclick="saveCreatorDataToCloud()" class="btn-gold text-[#0d0610] font-extrabold px-6 py-2.5 rounded-xl transition text-xs shadow-lg">
-          Enregistrer sur le Cloud
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Firebase SDKs & Script Principal -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-    const p1 = "AIzaSyBcoR5";
-    const p2 = "yMTMY_ittDm3T9Oak";
-    const p3 = "jMOP1CAV-0s";
-
-    const firebaseConfig = {
-      apiKey: p1 + p2 + p3,
-      authDomain: "urban-man-shop.firebaseapp.com",
-      projectId: "urban-man-shop",
-      storageBucket: "urban-man-shop.firebasestorage.app",
-      messagingSenderId: "301517686635",
-      appId: "1:301517686635:web:053f90fa4e472103c12e2e",
-      measurementId: "G-YS761W6CX2"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    const PHONE_NUMBER = "243846464895";
-    const INITIAL_PRODUCTS = 10;
-
-    // Utilisation des extensions .jpg pour les marchandises de base (1.jpg, 2.jpg, etc.)
-    let products = Array.from({ length: INITIAL_PRODUCTS }, (_, i) => ({
-      id: i + 1,
-      name: `Pièce Exclusive DG #${i + 1}`,
-      price: 0,
-      image: `./${i + 1}.jpg`,
-      likes: 0,
-      dislikes: 0,
-      userVoted: null,
-      comments: []
-    }));
-
-    let cart = [];
-    let deferredPrompt = null;
-
-    window.addEventListener("DOMContentLoaded", async () => {
-      requestNotificationPermission();
-      await loadProductsFromCloud();
-      renderProducts();
-      updateCartBadge();
-      registerServiceWorker();
-    });
-
-    function requestNotificationPermission() {
-      if ("Notification" in window && Notification.permission !== "granted") {
-        Notification.requestPermission();
-      }
-    }
-
-    function sendNewProductNotification(productName) {
-      if ("Notification" in window && Notification.permission === "granted") {
-        try {
-          navigator.serviceWorker.ready.then(registration => {
-            registration.showNotification("DJERIANNE BUSINESS (DG)", {
-              body: `✨ Nouvel article disponible : ${productName} !`,
-              icon: "./Logo.jpg",
-              badge: "./Logo.jpg",
-              vibrate: [200, 100, 200]
-            });
-          }).catch(() => {
-            new Notification("DJERIANNE BUSINESS (DG)", {
-              body: `✨ Nouvel article disponible : ${productName} !`,
-              icon: "./Logo.jpg"
-            });
-          });
-        } catch (e) {
-          console.log("Notification error:", e);
-        }
-      }
-    }
-
-    async function loadProductsFromCloud() {
-      try {
-        const docRef = doc(db, "shop", "djerianne_catalog_jpg_v1");
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          products = docSnap.data().items;
-        } else {
-          await setDoc(docRef, { items: products });
-        }
-      } catch (e) {
-        console.log("Erreur cloud, chargement local:", e);
-        const local = localStorage.getItem('dg_jpg_products_data');
-        if (local) products = JSON.parse(local);
-      }
-    }
-
-    window.saveCreatorDataToCloud = async function() {
-      try {
-        products.forEach(p => {
-          const nameInput = document.getElementById(`creator-name-${p.id}`);
-          const priceInput = document.getElementById(`creator-price-${p.id}`);
-          if (nameInput && priceInput) {
-            p.name = nameInput.value.trim() || `Pièce DG #${p.id}`;
-            p.price = parseFloat(priceInput.value) || 0;
-          }
-        });
-
-        const docRef = doc(db, "shop", "djerianne_catalog_jpg_v1");
-        await setDoc(docRef, { items: products });
-
-        localStorage.setItem('dg_jpg_products_data', JSON.stringify(products));
-        renderProducts();
-        closeCreatorModal();
-        alert("Modifications enregistrées et publiées pour tous les téléphones !");
-      } catch (e) {
-        alert("Erreur cloud : " + e.message);
-      }
-    };
-
-    window.handleGalleryUpload = function(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-
-      const reader = new FileReader();
-      reader.onload = async function(uploadEvent) {
-        const base64Image = uploadEvent.target.result;
-        const name = prompt("Nom de cette nouvelle pièce exclusive DG :") || "Collection Exclusive";
-        const price = parseFloat(prompt("Prix en $ :")) || 0;
-
-        const newId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
-        const newProd = {
-          id: newId,
-          name: name,
-          price: price,
-          image: base64Image,
-          likes: 0,
-          dislikes: 0,
-          userVoted: null,
-          comments: []
-        };
-
-        products.push(newProd);
-        await saveCreatorDataToCloud();
-        sendNewProductNotification(name);
-        openCreatorModal();
-      };
-      reader.readAsDataURL(file);
-    };
-
-    function registerServiceWorker() {
-      if ('serviceWorker' in navigator) {
-        const swCode = `
-          self.addEventListener('install', e => self.skipWaiting());
-          self.addEventListener('activate', e => self.clients.claim());
-          self.addEventListener('fetch', e => {
-            e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
-          });
-        `;
-        const blob = new Blob([swCode], { type: 'text/javascript' });
-        navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(err => console.log('SW Fail:', err));
-      }
-
-      window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        document.getElementById('pwaInstallBanner').classList.remove('hidden');
-      });
-    }
-
-    window.installPwa = function() {
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then(() => {
-          deferredPrompt = null;
-          document.getElementById('pwaInstallBanner').classList.add('hidden');
-        });
-      }
-    }
-
-    window.openImageModal = function(imageSrc) {
-      const modal = document.getElementById('imageModal');
-      const img = document.getElementById('zoomedImage');
-      img.src = imageSrc;
-      img.classList.remove('zoomed');
-      modal.classList.remove('hidden');
-    }
-
-    window.closeImageModal = function() {
-      document.getElementById('imageModal').classList.add('hidden');
-    }
-
-    window.toggleZoom = function() {
-      document.getElementById('zoomedImage').classList.toggle('zoomed');
-    }
-
-    function renderProducts(itemsToRender = products) {
-      const grid = document.getElementById('productsGrid');
-      grid.innerHTML = '';
-
-      itemsToRender.forEach(prod => {
-        const card = document.createElement('div');
-        card.className = "flex flex-col space-y-3 group p-3 rounded-2xl glass-card transition duration-300 hover:border-gold";
-
-        card.innerHTML = `
-          <div class="relative overflow-hidden rounded-xl bg-neutral-950 aspect-square flex items-center justify-center cursor-pointer" onclick="openImageModal('${prod.image}')" title="Agrandir">
-            <img src="${prod.image}" 
-                 onerror="this.src='https://via.placeholder.com/400x400/0d0610/FFFFFF?text=DG+Article+${prod.id}'" 
-                 alt="${prod.name}" 
-                 class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-            
-            <span class="absolute top-3 left-3 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full text-[10px] font-bold text-neutral-300 border border-white/10">
-              <i class="fa-solid fa-expand mr-1"></i> Agrandir
-            </span>
-
-            <span class="absolute top-3 right-3 bg-black/75 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-gold border border-white/10">
-              ${prod.price > 0 ? prod.price + ' $' : 'Sur Demande'}
-            </span>
-          </div>
-
-          <div class="space-y-2 flex-grow flex flex-col justify-between">
-            <div>
-              <h4 class="brand-title font-bold text-sm text-white leading-snug group-hover:text-gold transition">${escapeHtml(prod.name)}</h4>
-              
-              <div class="flex items-center space-x-4 text-xs text-neutral-400 mt-2">
-                <button onclick="vote(${prod.id}, 'like')" class="flex items-center space-x-1 ${prod.userVoted === 'like' ? 'text-gold font-bold' : 'hover:text-white'}">
-                  <i class="fa-thumbs-up ${prod.userVoted === 'like' ? 'fa-solid' : 'fa-regular'}"></i>
-                  <span>${prod.likes}</span>
-                </button>
-                <button onclick="vote(${prod.id}, 'dislike')" class="flex items-center space-x-1 ${prod.userVoted === 'dislike' ? 'text-red-400 font-bold' : 'hover:text-white'}">
-                  <i class="fa-thumbs-down ${prod.userVoted === 'dislike' ? 'fa-solid' : 'fa-regular'}"></i>
-                  <span>${prod.dislikes}</span>
-                </button>
-              </div>
-            </div>
-
-            <div class="grid grid-cols-2 gap-2 pt-2">
-              <button onclick="quickOrderWhatsApp(${prod.id})" class="btn-gold text-[#0d0610] font-extrabold text-xs py-2.5 rounded-xl transition flex items-center justify-center space-x-1 shadow">
-                <i class="fa-brands fa-whatsapp text-sm"></i>
-                <span>Commander</span>
-              </button>
-              <button onclick="addToCart(${prod.id})" class="bg-neutral-900/80 border border-white/10 text-white font-semibold text-xs py-2.5 rounded-xl hover:bg-neutral-800 transition flex items-center justify-center space-x-1">
-                <i class="fa-solid fa-cart-plus text-xs"></i>
-                <span>Panier</span>
-              </button>
-            </div>
-
-            <div class="pt-1 border-t border-neutral-800/60">
-              <details class="text-[11px] text-neutral-400">
-                <summary class="cursor-pointer hover:text-white flex items-center justify-between py-1">
-                  <span><i class="fa-regular fa-comments mr-1"></i> Avis (${prod.comments.length})</span>
-                  <i class="fa-solid fa-chevron-down text-[9px]"></i>
-                </summary>
-                
-                <div class="mt-2 space-y-2 pt-1">
-                  <div class="space-y-1.5 max-h-28 overflow-y-auto">
-                    ${prod.comments.length === 0 ? '<p class="text-[10px] text-neutral-600 italic">Aucun avis.</p>' : ''}
-                    ${prod.comments.map(c => `
-                      <div class="bg-neutral-900/90 p-2 rounded-lg text-[10px] border border-white/10">
-                        <span class="brand-title font-bold text-gold">${escapeHtml(c.user)}:</span>
-                        <span class="text-neutral-300">${escapeHtml(c.text)}</span>
-                      </div>
-                    `).join('')}
-                  </div>
-
-                  <div class="flex flex-col space-y-1 pt-1">
-                    <input type="text" id="commentUser-${prod.id}" placeholder="Votre nom" class="bg-neutral-900 border border-white/10 rounded-lg px-2 py-1 text-[10px] text-white focus:outline-none">
-                    <div class="flex space-x-1">
-                      <input type="text" id="commentText-${prod.id}" placeholder="Votre avis..." class="bg-neutral-900 border border-white/10 rounded-lg px-2 py-1 text-[10px] text-white focus:outline-none flex-grow">
-                      <button onclick="addComment(${prod.id})" class="bg-neutral-800 hover:bg-neutral-700 text-white px-2.5 py-1 rounded-lg text-[10px]">
-                        Poster
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </details>
-            </div>
-          </div>
-        `;
-        grid.appendChild(card);
-      });
-    }
-
-    window.vote = function(productId, type) {
-      const prod = products.find(p => p.id === productId);
-      if (!prod) return;
-
-      if (prod.userVoted === type) {
-        if (type === 'like') prod.likes--;
-        if (type === 'dislike') prod.dislikes--;
-        prod.userVoted = null;
-      } else {
-        if (prod.userVoted === 'like') prod.likes--;
-        if (prod.userVoted === 'dislike') prod.dislikes--;
-        if (type === 'like') prod.likes++;
-        if (type === 'dislike') prod.dislikes++;
-        prod.userVoted = type;
-      }
-      renderProducts();
-    }
-
-    window.addComment = function(productId) {
-      const userField = document.getElementById(`commentUser-${productId}`);
-      const textField = document.getElementById(`commentText-${productId}`);
-      const user = userField.value.trim() || "Cliente DG";
-      const text = textField.value.trim();
-      if (!text) return;
-
-      const prod = products.find(p => p.id === productId);
-      if (prod) {
-        prod.comments.push({ user, text });
-        renderProducts();
-      }
-    }
-
-    window.promptCreatorAccess = function() {
-      const code = prompt("Mot de passe Espace Créateur DG :");
-      if (code === "mnl" || code === "@mnl@" || code === "@Pierrot@" || code === "@Joachim@") {
-        openCreatorModal();
-      } else if (code !== null) {
-        alert("Mot de passe incorrect.");
-      }
-    }
-
-    function openCreatorModal() {
-      const container = document.getElementById('creatorProductsList');
-      container.innerHTML = '';
-
-      products.forEach(p => {
-        const row = document.createElement('div');
-        row.className = "flex flex-col sm:flex-row items-center justify-between bg-black/60 p-3 rounded-xl border border-white/10 gap-3";
-        row.innerHTML = `
-          <div class="flex items-center space-x-3 w-full sm:w-auto">
-            <img src="${p.image}" class="w-10 h-10 object-cover rounded-lg bg-neutral-900" onerror="this.src='https://via.placeholder.com/40'">
-            <span class="text-xs font-mono text-neutral-400">#${p.id}</span>
-          </div>
-
-          <div class="flex flex-col sm:flex-row items-center gap-2 w-full sm:w-auto flex-grow max-w-md">
-            <input type="text" id="creator-name-${p.id}" value="${escapeHtml(p.name)}" placeholder="Nom" class="bg-neutral-900 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white w-full">
-            <div class="flex items-center space-x-1 w-full sm:w-32">
-              <input type="number" id="creator-price-${p.id}" value="${p.price}" placeholder="Prix" class="bg-neutral-900 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white w-full">
-              <span class="text-xs font-bold text-gold">$</span>
-            </div>
-          </div>
-        `;
-        container.appendChild(row);
-      });
-
-      document.getElementById('creatorModal').classList.remove('hidden');
-    }
-
-    window.closeCreatorModal = function() {
-      document.getElementById('creatorModal').classList.add('hidden');
-    }
-
-    window.addToCart = function(productId) {
-      const prod = products.find(p => p.id === productId);
-      if (!prod) return;
-
-      const existing = cart.find(item => item.id === productId);
-      if (existing) {
-        existing.qty++;
-      } else {
-        cart.push({ ...prod, qty: 1 });
-      }
-      updateCartBadge();
-      openCart();
-    }
-
-    function updateCartBadge() {
-      const badge = document.getElementById('cartBadge');
-      const totalItems = cart.reduce((acc, item) => acc + item.qty, 0);
-      if (totalItems > 0) {
-        badge.textContent = totalItems;
-        badge.classList.remove('hidden');
-      } else {
-        badge.classList.add('hidden');
-      }
-    }
-
-    window.openCart = function() {
-      const list = document.getElementById('cartItemsList');
-      list.innerHTML = '';
-      let total = 0;
-
-      if (cart.length === 0) {
-        list.innerHTML = '<p class="text-center text-neutral-500 text-xs py-10">Votre panier DG est vide.</p>';
-      } else {
-        cart.forEach(item => {
-          total += item.price * item.qty;
-          const row = document.createElement('div');
-          row.className = "flex items-center justify-between bg-neutral-900/80 p-3 rounded-xl border border-white/10";
-          row.innerHTML = `
-            <div class="flex items-center space-x-3">
-              <img src="${item.image}" class="w-12 h-12 object-cover rounded-lg bg-black" onerror="this.src='https://via.placeholder.com/50'">
-              <div>
-                <h5 class="brand-title text-xs font-bold text-white">${escapeHtml(item.name)}</h5>
-                <p class="text-xs text-gold font-semibold">${item.price} $ x ${item.qty}</p>
-              </div>
-            </div>
-            <div class="flex items-center space-x-2">
-              <button onclick="changeQty(${item.id}, -1)" class="w-6 h-6 bg-neutral-800 rounded-lg text-xs font-bold">-</button>
-              <span class="text-xs font-bold">${item.qty}</span>
-              <button onclick="changeQty(${item.id}, 1)" class="w-6 h-6 bg-neutral-800 rounded-lg text-xs font-bold">+</button>
-            </div>
-          `;
-          list.appendChild(row);
-        });
-      }
-
-      document.getElementById('cartTotalPrice').textContent = total + ' $';
-      document.getElementById('cartModal').classList.remove('hidden');
-    }
-
-    window.closeCart = function() {
-      document.getElementById('cartModal').classList.add('hidden');
-    }
-
-    window.changeQty = function(productId, delta) {
-      const item = cart.find(i => i.id === productId);
-      if (!item) return;
-      item.qty += delta;
-      if (item.qty <= 0) cart = cart.filter(i => i.id !== productId);
-      updateCartBadge();
-      openCart();
-    }
-
-    window.quickOrderWhatsApp = function(productId) {
-      const prod = products.find(p => p.id === productId);
-      if (!prod) return;
-      const message = `Bonjour Djerianne Business (DG), je souhaite commander :\n- *${prod.name}* (${prod.price > 0 ? prod.price + ' $' : 'Sur Demande'})\n\nRéférence article #${prod.id}`;
-      window.open(`https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
-    }
-
-    window.sendCartToWhatsApp = function() {
-      if (cart.length === 0) return;
-      let message = "Bonjour Djerianne Business (DG), voici ma commande :\n\n";
-      let total = 0;
-      cart.forEach(item => {
-        const subtotal = item.price * item.qty;
-        total += subtotal;
-        message += `• *${item.name}* (x${item.qty}) - ${subtotal > 0 ? subtotal + ' $' : 'Sur demande'}\n`;
-      });
-      message += `\n*Total Estimé:* ${total} $\nMerci de me confirmer la disponibilité !`;
-      window.open(`https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
-    }
-
-    window.openMobileMoneyModal = function() {
-      document.getElementById('mobileMoneyModal').classList.remove('hidden');
-    }
-
-    window.closeMobileMoneyModal = function() {
-      document.getElementById('mobileMoneyModal').classList.add('hidden');
-    }
-
-    window.copyToClipboard = function(text) {
-      navigator.clipboard.writeText(text);
-      alert("Copié : " + text);
-    }
-
-    window.confirmMobileMoneyWhatsApp = function() {
-      const message = "Bonjour Djerianne Business (DG), je viens d'effectuer mon paiement par Mobile Money. Voici ma capture.";
-      window.open(`https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
-    }
-
-    window.toggleSearch = function() {
-      const container = document.getElementById('searchContainer');
-      container.classList.toggle('hidden');
-      if (!container.classList.contains('hidden')) document.getElementById('searchInput').focus();
-    }
-
-    window.filterProducts = function() {
-      const query = document.getElementById('searchInput').value.toLowerCase().trim();
-      const filtered = products.filter(p => p.name.toLowerCase().includes(query));
-      renderProducts(filtered);
-    }
-
-    function escapeHtml(text) {
-      return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
-    }
-  </script>
+</div></div>
+
+<div id="zoom"><img alt=""></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { initializeFirestore, collection, getDocs, doc, setDoc, writeBatch } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+/* ============ RÉGLAGES (à modifier ici si besoin) ============ */
+const CFG = {
+  name: "Djerianne Business",
+  phone: "243818658932",          // numéro WhatsApp, sans + ni espaces
+  cur: "$",                       // devise affichée
+  ext: "jpg",                     // photos : 1.jpg, 2.jpg, 3.jpg …
+  max: 300,                       // nombre maximum de photos recherchées
+  admin: ["@mnl@", "mnl"],        // codes de l'espace créateur
+  col: "djerianne_products"       // collection Firebase de ce site
+};
+
+/* ============ FIREBASE ============ */
+const p1 = "AIzaSyBcoR5", p2 = "yMTMY_ittDm3T9Oak", p3 = "jMOP1CAV-0s";
+const firebaseConfig = {
+  apiKey: p1 + p2 + p3,
+  authDomain: "urban-man-shop.firebaseapp.com",
+  projectId: "urban-man-shop",
+  storageBucket: "urban-man-shop.firebasestorage.app",
+  messagingSenderId: "301517686635",
+  appId: "1:301517686635:web:053f90fa4e472103c12e2e"
+};
+const db = initializeFirestore(initializeApp(firebaseConfig), { experimentalAutoDetectLongPolling: true, ignoreUndefinedProperties: true });
+
+/* ============ OUTILS ============ */
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const ls = { get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } }, set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} } };
+const wt = (p, ms) => Promise.race([p, new Promise((_, r) => setTimeout(() => r(Object.assign(new Error("timeout"), { code: "timeout" })), ms))]);
+const imgUrl = id => `./${id}.${CFG.ext}`, absUrl = id => new URL(imgUrl(id), location.href).href;
+const money = p => p > 0 ? `${p % 1 ? p.toFixed(2) : p} ${CFG.cur}` : "Prix sur demande";
+const waLink = t => `https://wa.me/${CFG.phone}` + (t ? `?text=${encodeURIComponent(t)}` : "");
+const P = {
+  bag: '<path d="M6 7h12l1 13H5L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/>', plus: '<path d="M12 5v14M5 12h14"/>', minus: '<path d="M5 12h14"/>',
+  x: '<path d="M6 6l12 12M18 6L6 18"/>', chat: '<path d="M21 12a8 8 0 0 1-11.7 7L4 20l1.2-4.4A8 8 0 1 1 21 12z"/>',
+  share: '<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 10.6l6.8-4M8.6 13.4l6.8 4"/>',
+  gem: '<path d="M6 4h12l4 5-10 11L2 9z"/><path d="M2 9h20M9 4l-2 5 5 11M15 4l2 5-5 11"/>'
+};
+const ic = n => `<svg class="i" viewBox="0 0 24 24" aria-hidden="true">${P[n]}</svg>`;
+let toastT; const toast = m => { let t = $("#toast"); if (!t) { t = document.createElement("div"); t.id = "toast"; t.setAttribute("role", "status"); document.body.appendChild(t); } t.textContent = m; t.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => t.hidden = true, 2200); };
+
+/* ============ DONNÉES ============ */
+let ids = [], cloud = ls.get("dj_cloud", {}), cart = ls.get("dj_cart", {}), loaded = false, cur = 0;
+const prod = id => { const c = cloud[id] || {}; return { id, name: (c.name || "").trim() || `Article ${id}`, price: +c.price > 0 ? +c.price : 0, hidden: !!c.hidden, sold: !!c.sold }; };
+const shown = () => ids.filter(i => !prod(i).hidden).sort((a, b) => b - a);   // les plus récents d'abord
+
+/* Détection des photos : seules celles qui existent sont affichées (pas de case vide) */
+const probe = id => new Promise(res => { const im = new Image(), to = setTimeout(() => { im.src = ""; res(false); }, 9000); im.onload = () => { clearTimeout(to); res(true); }; im.onerror = () => { clearTimeout(to); res(false); }; im.src = imgUrl(id); });
+async function discover() {
+  const found = [];
+  for (let s = 1; s <= CFG.max; s += 10) {
+    const batch = Array.from({ length: 10 }, (_, i) => s + i), r = await Promise.all(batch.map(probe));
+    batch.forEach((id, i) => r[i] && found.push(id));
+    if (!r.some(Boolean)) break;           // 10 numéros de suite sans photo : on s'arrête
+  }
+  return found;
+}
+async function loadCloud() {
+  try {
+    const snap = await wt(getDocs(collection(db, CFG.col)), 12000), m = {};
+    snap.forEach(d => { const x = /^item_(\d+)$/.exec(d.id); if (x) m[+x[1]] = d.data(); });
+    cloud = m; ls.set("dj_cloud", m); return true;
+  } catch (e) { console.warn("Firebase :", e.code || e.message); return false; }
+}
+
+/* ============ AFFICHAGE ============ */
+function render() {
+  const g = $("#grid"), list = shown();
+  $("#count").textContent = loaded && list.length ? `${list.length} article${list.length > 1 ? "s" : ""}` : "";
+  $("#empty").hidden = !(loaded && !list.length);
+  if (!loaded && !list.length) { g.innerHTML = '<div class="sk"></div>'.repeat(4); return; }
+  g.innerHTML = list.map((id, i) => { const p = prod(id);
+    return `<article class="card${p.sold ? " sold" : ""}" style="--i:${Math.min(i, 10)}" data-id="${id}"><div class="ph"><img src="${imgUrl(id)}" alt="${esc(p.name)}" loading="lazy" decoding="async">${p.sold ? '<span class="tag">ÉPUISÉ</span>' : ""}</div>` +
+      `<div class="meta"><div><h3 class="nm">${esc(p.name)}</h3><div class="pr">${money(p.price)}</div></div>${p.sold ? "" : `<button class="add" data-add="${id}" aria-label="Ajouter ${esc(p.name)} au panier">${ic("plus")}</button>`}</div></article>`; }).join("");
+}
+$("#grid").addEventListener("click", e => {
+  const a = e.target.closest("[data-add]"); if (a) { e.stopPropagation(); return addCart(+a.dataset.add); }
+  const c = e.target.closest(".card"); if (c) openProduct(+c.dataset.id);
+});
+
+/* ============ FENÊTRES ============ */
+const openM = id => { $("#" + id).classList.add("on"); document.body.classList.add("lock"); };
+function hideAll() { $$(".modal.on").forEach(m => m.classList.remove("on")); $("#zoom").classList.remove("on"); document.body.classList.remove("lock"); }
+function closeTop() { if ($("#zoom").classList.contains("on")) return $("#zoom").classList.remove("on"); if (history.state && history.state.m) history.back(); else hideAll(); }
+$$("[data-close]").forEach(b => b.onclick = closeTop);
+$$(".modal").forEach(m => m.addEventListener("click", e => { if (e.target === m) closeTop(); }));
+addEventListener("popstate", hideAll);
+addEventListener("keydown", e => { if (e.key === "Escape") closeTop(); });
+$("#zoom").onclick = () => $("#zoom").classList.remove("on");
+
+function openProduct(id, push = true) {
+  const p = prod(id); if (!ids.includes(id) || p.hidden) return; cur = id;
+  $("#pBody").innerHTML = `<button class="pimg" data-zoom aria-label="Agrandir la photo"><img src="${imgUrl(id)}" alt="${esc(p.name)}"></button><div class="ref">Réf. DJ-${id}</div><h2 id="pName">${esc(p.name)}</h2><div class="pprice">${money(p.price)}</div>` +
+    (p.sold ? '<p class="note">Cet article est épuisé pour le moment. Écris-nous pour savoir quand il revient.</p>' : '<p class="note">La disponibilité est confirmée avec toi sur WhatsApp.</p>');
+  $("#pFoot").innerHTML = (p.sold ? "" : `<button class="btn gold" data-a="add">${ic("bag")}Ajouter</button>`) +
+    `<button class="btn wa" data-a="wa">${ic("chat")}${p.sold ? "Nous écrire" : "Commander"}</button><button class="btn ic" data-a="share" aria-label="Partager">${ic("share")}</button>`;
+  openM("mP"); if (push) history.pushState({ m: 1 }, "", "#article-" + id);
+}
+$("#pBody").addEventListener("click", e => { if (e.target.closest("[data-zoom]")) { $("#zoom img").src = imgUrl(cur); $("#zoom").classList.add("on"); } });
+$("#pFoot").addEventListener("click", e => {
+  const a = e.target.closest("[data-a]"); if (!a) return; const p = prod(cur);
+  if (a.dataset.a === "add") addCart(cur);
+  if (a.dataset.a === "wa") open(waLink(p.sold ? `Bonjour ${CFG.name}, l'article « ${p.name} » (réf. DJ-${cur}) sera-t-il bientôt disponible ?` : `Bonjour ${CFG.name}, je souhaite commander :\n\n• *${p.name}* (réf. DJ-${cur}) : ${money(p.price)}\nPhoto : ${absUrl(cur)}\n\nMerci de me confirmer la disponibilité !`), "_blank", "noopener");
+  if (a.dataset.a === "share") share(cur);
+});
+async function share(id) {
+  const u = location.href.split("#")[0] + "#article-" + id;
+  try { if (navigator.share) await navigator.share({ title: CFG.name, text: prod(id).name, url: u }); else { await navigator.clipboard.writeText(u); toast("Lien copié"); } } catch (e) {}
+}
+
+/* ============ PANIER ============ */
+function cartItems() { return Object.keys(cart).map(Number).filter(i => ids.includes(i) && !prod(i).hidden && !prod(i).sold && cart[i] > 0).map(i => ({ ...prod(i), q: cart[i] })); }
+function cartUI() {
+  const n = cartItems().reduce((s, x) => s + x.q, 0), b = $("#bdg"); b.textContent = n; b.hidden = !n;
+  if ($("#mC").classList.contains("on")) drawCart();
+}
+function addCart(id) { if (prod(id).sold) return; cart[id] = Math.min(99, (cart[id] || 0) + 1); ls.set("dj_cart", cart); cartUI(); toast("Ajouté au panier"); }
+function drawCart() {
+  const it = cartItems(); let tot = 0, ask = false;
+  $("#cList").innerHTML = it.length ? it.map(x => { tot += x.price * x.q; if (!x.price) ask = true;
+    return `<div class="ci"><img src="${imgUrl(x.id)}" alt=""><div><b>${esc(x.name)}</b><span>${money(x.price)}</span></div><div class="q"><button data-q="${x.id}:-1" aria-label="Moins">${ic("minus")}</button>${x.q}<button data-q="${x.id}:1" aria-label="Plus">${ic("plus")}</button></div></div>`; }).join("")
+    : '<p class="muted" style="text-align:center;padding:30px 0">Ton panier est vide.</p>';
+  $("#cTot").innerHTML = it.length ? `<span>Total estimé${ask ? " (+ articles sur demande)" : ""}</span><b>${tot > 0 ? money(tot) : "Sur demande"}</b>` : "";
+  $("#cSend").disabled = !it.length; $("#cSend").style.opacity = it.length ? 1 : .5;
+}
+$("#cList").addEventListener("click", e => {
+  const b = e.target.closest("[data-q]"); if (!b) return; const [id, d] = b.dataset.q.split(":").map(Number);
+  cart[id] = (cart[id] || 0) + d; if (cart[id] <= 0) delete cart[id]; ls.set("dj_cart", cart); cartUI(); drawCart();
+});
+$("#cClr").onclick = () => { cart = {}; ls.set("dj_cart", cart); cartUI(); drawCart(); };
+$("#cSend").onclick = () => {
+  const it = cartItems(); if (!it.length) return; let tot = 0, ask = false;
+  const lines = it.map(x => { tot += x.price * x.q; if (!x.price) ask = true; return `• *${x.name}* × ${x.q} : ${money(x.price)}\n  Réf. DJ-${x.id}\n  Photo : ${absUrl(x.id)}`; }).join("\n\n");
+  open(waLink(`Bonjour ${CFG.name}, voici ma commande :\n\n${lines}\n\n` + (tot > 0 ? `Total : ${money(tot)}${ask ? " (+ articles sur demande)" : ""}\n` : "") + "Merci de me confirmer la disponibilité !"), "_blank", "noopener");
+};
+$("#dCart").onclick = () => { drawCart(); openM("mC"); };
+
+/* ============ ESPACE CRÉATEUR (Firebase) ============ */
+const aSt = (m, c = "") => { const s = $("#aSt"); s.textContent = m; s.className = c; };
+const errMsg = e => e && e.code === "permission-denied" ? "Firebase refuse l'écriture. Colle les règles dans Firestore > Règles > Publier." : e && e.code === "timeout" ? "Pas de réponse de Firebase (connexion lente ou bloquée)." : "Erreur Firebase : " + ((e && e.message) || e);
+function openAdmin() {
+  const c = prompt("Code créateur :"); if (c === null) return;
+  if (!CFG.admin.includes(c.trim())) return toast("Code incorrect");
+  $("#aList").innerHTML = ids.slice().sort((a, b) => a - b).map(id => { const c = cloud[id] || {};
+    return `<div class="arow" data-id="${id}"><img src="${imgUrl(id)}" alt=""><div class="af"><b>Réf. DJ-${id}</b><input class="in n" maxlength="120" placeholder="Article ${id}" value="${esc(c.name || "")}">` +
+      `<input class="in p" type="number" inputmode="decimal" min="0" step="any" placeholder="Prix en ${CFG.cur} (vide = sur demande)" value="${c.price > 0 ? c.price : ""}"><div class="tg"><label><input type="checkbox" class="h"${c.hidden ? " checked" : ""}>Masqué</label><label><input type="checkbox" class="s"${c.sold ? " checked" : ""}>Épuisé</label></div></div></div>`; }).join("")
+    || '<p class="muted">Aucune photo trouvée. Ajoute 1.jpg, 2.jpg… dans le dépôt GitHub.</p>';
+  aSt(""); openM("mA");
+}
+async function saveAdmin() {
+  const b = writeBatch(db), next = {}; let n = 0;
+  $$(".arow").forEach(r => {
+    const id = +r.dataset.id, d = { id, name: r.querySelector(".n").value.trim().slice(0, 120), price: Math.max(0, Math.min(1e6, parseFloat(r.querySelector(".p").value) || 0)), hidden: r.querySelector(".h").checked, sold: r.querySelector(".s").checked, rev: 2 }, o = cloud[id] || {};
+    if ((o.name || "") !== d.name || (+o.price || 0) !== d.price || !!o.hidden !== d.hidden || !!o.sold !== d.sold) { b.set(doc(db, CFG.col, "item_" + id), d, { merge: true }); next[id] = d; n++; }
+  });
+  if (!n) return aSt("Aucun changement à enregistrer.");
+  $("#aSave").disabled = true; aSt("Enregistrement…");
+  try { await wt(b.commit(), 15000); Object.assign(cloud, next); ls.set("dj_cloud", cloud); render(); cartUI(); aSt(`✓ ${n} article${n > 1 ? "s" : ""} enregistré${n > 1 ? "s" : ""}.`, "ok"); }
+  catch (e) { aSt(errMsg(e), "err"); }
+  $("#aSave").disabled = false;
+}
+async function testFirebase() {
+  aSt("Test en cours…");
+  try { await wt(setDoc(doc(db, CFG.col, "_diag"), { t: Date.now() }), 12000); await wt(getDocs(collection(db, CFG.col)), 12000); aSt("✓ Connexion OK : lecture et écriture fonctionnent.", "ok"); }
+  catch (e) { aSt(errMsg(e), "err"); }
+}
+$("#aSave").onclick = saveAdmin; $("#aTest").onclick = testFirebase; $("#adm").onclick = openAdmin;
+
+/* ============ DÉMARRAGE ============ */
+$$("[data-i]").forEach(e => e.innerHTML = ic(e.dataset.i));
+const hello = `Bonjour ${CFG.name}, j'ai une question.`;
+["#heroWa", "#dWa", "#footWa"].forEach(s => $(s).href = waLink(hello));
+$("#footWa").textContent = "WhatsApp : +" + CFG.phone.replace(/(\d{3})(\d{3})(\d{3})(\d{3})/, "$1 $2 $3 $4");
+(async () => {
+  const cached = ls.get("dj_ids", []); if (cached.length) { ids = cached; loaded = true; }
+  render(); cartUI();
+  const cp = loadCloud();
+  let found = await discover();
+  if (!found.length && cached.length && !navigator.onLine) found = cached;     // hors ligne : on garde ce qu'on avait
+  ids = found; loaded = true; ls.set("dj_ids", found); render(); cartUI();
+  const h = location.hash, m = /^#article-(\d+)$/.exec(h);
+  if (m) openProduct(+m[1], false);
+  if (h === "#admin") openAdmin();
+  if (await cp) { render(); cartUI(); if (m && $("#mP").classList.contains("on")) openProduct(+m[1], false); }
+})();
+</script>
 </body>
 </html>

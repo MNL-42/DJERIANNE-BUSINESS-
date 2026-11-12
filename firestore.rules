@@ -1,0 +1,34 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Urban Man Shop (inchangé)
+    match /shop_products_clean/{docId} {
+      allow read: if true;
+      allow create, update: if request.resource.data.get('price', 0) is number
+                            && request.resource.data.get('price', 0) >= 0
+                            && request.resource.data.get('price', 0) <= 100000
+                            && request.resource.data.get('name', '') is string
+                            && request.resource.data.get('name', '').size() <= 120
+                            && request.resource.data.get('hidden', false) is bool
+                            && request.resource.data.get('likes', 0) is number
+                            && request.resource.data.get('likes', 0) >= 0
+                            && request.resource.data.get('dislikes', 0) is number
+                            && request.resource.data.get('dislikes', 0) >= 0;
+      allow delete: if false;
+    }
+
+    // Djerianne Business
+    match /djerianne_products/{docId} {
+      allow read: if true;
+      allow create, update: if request.resource.data.get('price', 0) is number
+                            && request.resource.data.get('price', 0) >= 0
+                            && request.resource.data.get('price', 0) <= 1000000
+                            && request.resource.data.get('name', '') is string
+                            && request.resource.data.get('name', '').size() <= 120
+                            && request.resource.data.get('hidden', false) is bool
+                            && request.resource.data.get('sold', false) is bool;
+      allow delete: if false;
+    }
+  }
+}
